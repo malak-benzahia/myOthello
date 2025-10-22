@@ -49,7 +49,7 @@ class Game:
                 rect = pg.Rect(self.BOARD_TOPLEFT[0] + col*self.CELL_SIZE,
                                self.BOARD_TOPLEFT[1] + row*self.CELL_SIZE,
                                self.CELL_SIZE, self.CELL_SIZE)
-                pg.draw.rect(self.screen, (0, 100, 0), rect)
+                pg.draw.rect(self.screen, (0, 100, 80), rect)
                 pg.draw.rect(self.screen, (0, 0, 0), rect, 1)
     
     # redrawing board with the correct discs           
@@ -334,6 +334,9 @@ class Game:
         
         depth2_text = menu_font.render('Medium ', True, (255, 255, 255))
         depth2_rect = pg.Rect(400, 310, 400, 60)
+
+        depth3_text = menu_font.render('Hard ', True, (255, 255, 255))
+        depth3_rect = pg.Rect(400, 390, 400, 60)
         
         
         
@@ -344,6 +347,7 @@ class Game:
         buttons = [
             (depth1_rect, depth1_text, 1),
             (depth2_rect, depth2_text, 2),
+            (depth3_rect, depth3_text, 3),
             
         ]
         
