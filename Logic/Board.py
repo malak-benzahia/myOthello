@@ -59,6 +59,13 @@ class Board:
                 continue
         return moves
 
+    def score(self, turn: int):
+        if turn == self.BLACK:
+            return self.black_disc_count
+        else:
+            return self.white_disc_count
+        
+    
     def findAllPossibleMoves(self, player: int):
         allMoves = set()
         for r in range(self.board.shape[0]):      # iterate over row indices

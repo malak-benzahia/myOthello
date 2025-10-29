@@ -54,16 +54,22 @@ class Game:
     
     # redrawing board with the correct discs           
     def redrawBoard(self):
-        self.announceWinner()
-        self.piecesTracking()
-        self.highlightPossibleMoves()
         for row in range(self.BOARD_SIZE):
                 for col in range(self.BOARD_SIZE):
                     if self.board.board[row, col] == self.board.BLACK:
                         self.drawDisc(self.board.BLACK, self.findSquareTopleftCoordsByIndex((row, col)))
                     elif self.board.board[row, col] == self.board.WHITE:
                         self.drawDisc(self.board.WHITE, self.findSquareTopleftCoordsByIndex((row,col)))
-    
+        self.piecesTracking()
+        self.highlightPossibleMoves()
+
+        if not self.board.findAllPossibleMoves(self.turn) and not self.board.isGameOver():
+            self.turn = -self.turn
+
+        if self.board.isGameOver():
+            self.announceWinner()
+
+
     # drawing the discs 
     def drawDisc(self, color: int, coords: tuple[int, int]) -> None:
         center = (coords[0] + self.CELL_SIZE // 2, coords[1] + self.CELL_SIZE // 2)
@@ -175,13 +181,13 @@ class Game:
 
                 if self.board.white_disc_count > self.board.black_disc_count:
                     winner = my_font.render('White won!', True, (255, 255, 255))
-                    self.screen.blit(winner, (700, 300))
+                    self.screen.blit(winner, (700, 350))
                 elif self.board.white_disc_count < self.board.black_disc_count:
                     winner = my_font.render('Black won!', True, (255, 255, 255))
-                    self.screen.blit(winner, (700, 300))
+                    self.screen.blit(winner, (700, 350))
                 else:
                     winner = my_font.render('it is a tie!', True, (255, 255, 255))
-                    self.screen.blit(winner, (700, 300))
+                    self.screen.blit(winner, (700, 350))
 
     def highlightPossibleMoves(self):
         moves = self.board.findAllPossibleMoves(self.turn)
