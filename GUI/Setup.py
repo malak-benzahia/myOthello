@@ -60,6 +60,31 @@ class Game:
                         self.drawDisc(self.board.BLACK, self.findSquareTopleftCoordsByIndex((row, col)))
                     elif self.board.board[row, col] == self.board.WHITE:
                         self.drawDisc(self.board.WHITE, self.findSquareTopleftCoordsByIndex((row,col)))
+        
+        menu_font = pg.font.SysFont('Arial', 25)
+
+        mx, my = pg.mouse.get_pos()
+
+        hvh_text = menu_font.render('Return', True, (255, 255, 255))
+        hvh_rect = pg.Rect(10, 10, 120, 50)
+        
+        if hvh_rect.collidepoint(mx, my):
+            pg.draw.rect(self.screen, (0, 150, 0), hvh_rect)
+        else:
+            pg.draw.rect(self.screen, (0, 100, 0), hvh_rect)
+        pg.draw.rect(self.screen, (255, 255, 255), hvh_rect, 3)
+        hvh_text_rect = hvh_text.get_rect(center=hvh_rect.center)
+        self.screen.blit(hvh_text, hvh_text_rect)
+
+        for event in pg.event.get():
+            if event.type == QUIT:
+                pg.quit()
+                sys.exit()
+            elif event.type == pg.MOUSEBUTTONDOWN:
+                if hvh_rect.collidepoint(mx, my):
+                    self.in_menu = True
+                    self.startTime = pg.time.get_ticks()  # Reset timer when game starts
+                
         self.piecesTracking()
         self.highlightPossibleMoves()
 
