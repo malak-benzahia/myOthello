@@ -83,7 +83,9 @@ class Game:
             elif event.type == pg.MOUSEBUTTONDOWN:
                 if hvh_rect.collidepoint(mx, my):
                     self.in_menu = True
-                    self.startTime = pg.time.get_ticks()  # Reset timer when game starts
+                    self.menu_state = "main"
+                    self.game_mode = None  # "human_vs_human" or "human_vs_computer"
+                    self.player_role = None
                 
         self.piecesTracking()
         self.highlightPossibleMoves()
